@@ -1,0 +1,40 @@
+<!-- resultados.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+
+    <title>Resultados | Klearty IA</title>
+</head>
+<body>
+    <div class="header">
+        <h1>Resultados del Análisis</h1>
+    </div>
+    <div class="container">
+
+    <h2>Información del Archivo:</h2>
+    <p>Nombre del Archivo: {{ parametros['filename'] }}</p>
+    <p>Variable Target: {{ parametros['target'] }}</p>
+    <p>Modo Pro: {{ parametros['pro_mode'] }}</p>
+
+    <h2>Nombres de las Columnas:</h2>
+    <ul>
+        {% for columna in columnas %}
+            <li>{{ columna }}</li>
+        {% endfor %}
+    </ul>
+
+
+    <h2>Variables Seleccionadas:</h2>
+    <ul>
+        {% for vp in variables_principales %}
+            <li>{{ vp }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Accuracy: {{metric}}</h2>
+    </div>
+</body>
+</html>
