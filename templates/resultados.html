@@ -1,16 +1,17 @@
-<!-- resultados.html -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-
+    <!-- Enlace al archivo CSS de Bootstrap (requiere conexión a Internet) -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
     <title>Resultados | Klearty IA</title>
 </head>
 <body>
-    <div class="header">
-        <h1>Resultados del Análisis</h1>
+    <div class="header text-center">
+        <img src="{{ url_for('static', filename='logo_klearty.png') }}" alt="Logo Klearty" class="img-fluid">
+        <h1 class="mt-4">Resultados del Análisis</h1>
     </div>
     <div class="container">
 
@@ -20,21 +21,31 @@
     <p>Modo Pro: {{ parametros['pro_mode'] }}</p>
 
     <h2>Nombres de las Columnas:</h2>
-    <ul>
+    <ul class="list-group">
         {% for columna in columnas %}
-            <li>{{ columna }}</li>
+            <li class="list-group-item">{{ columna }}</li>
         {% endfor %}
     </ul>
-
-
     <h2>Variables Seleccionadas:</h2>
-    <ul>
-        {% for vp in variables_principales %}
-            <li>{{ vp }}</li>
+    <form action="/predecir" method="post" enctype="multipart/form-data">
+        <ul class="list-group">
+        {% for i in range (0, cant_variables_principales-1) %} 
+            <li class="list-group-item">{{ variables_principales[i] }}</li>
+            <input type="hidden" name="item{{ i }}" value="{{ variables_principales[i] }}">
         {% endfor %}
-    </ul>
+        </ul>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Ir a predecir</button>
+        </div>
+    </form>
 
     <h2>Accuracy: {{metric}}</h2>
     </div>
+
+    <!-- Scripts de Bootstrap (requiere conexión a Internet) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </body>
 </html>

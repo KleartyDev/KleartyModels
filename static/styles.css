@@ -138,7 +138,10 @@ button:hover {
 }
 
 
-
+.btn-predict {
+    width: auto; /* Esto hará que el botón tenga el ancho según su contenido */
+    padding: 20px 40px; /* Ajusta esto para aumentar el tamaño si es necesario */
+}
 
 
 

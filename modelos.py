@@ -52,7 +52,7 @@ def test_and_export_best_model(data, target_column, file_path):
     print("columnas X:",X.columns)
     #print("columnas y:",y.columns)
 
-    # Dividiendo los datos en conjuntos de entrenamiento y prueba
+    # Dividiendo los datos en conjuntos de entrenamiento y prueba ; el test_size se podrian cambiar con una macro
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 
     # Inicializando los modelos
@@ -80,6 +80,28 @@ def test_and_export_best_model(data, target_column, file_path):
         model_name = 'XGBoost'
 
     # Exportando el mejor modelo como un archivo pickle
-    pickle.dump(best_model, open(file_path + model_name + '.pkl', 'wb'))
+    new_file_path =  file_path + model_name + '.pkl'  
+    pickle.dump(best_model, open(new_file_path, 'wb'))
 
+    model_name = new_file_path
+    
     return model_name, best_accuracy
+
+
+def generate_selected_variables(new_variables, variables):
+
+    selected_variables = []
+
+    for new_variable in new_variables:
+
+        for old_variable in variables:
+            if old_variable in new_variable:
+                selected_variables.append(old_variable)
+                break
+
+    selected_variables = [item for item in selected_variables if item != "y"]
+
+    print ("cantidad de variables seleccionadas:",len(selected_variables),selected_variables)
+    return selected_variables
+
+

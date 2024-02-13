@@ -1,0 +1,71 @@
+.header {
+    background-color: #2980b9;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.header h1 {
+    font-size: 3em; /* Tamaño más grande para el título */
+    margin: 0;
+    font-weight: bold;
+}
+/* PREDICT *
+/* Botón más grande y con mejor respuesta al hover */
+.btn-predict.btn-lg {
+    padding: 20px 40px; /* Aumentar el relleno para hacerlo más grande */
+    font-size: 1.25em; /* Aumentar el tamaño de la fuente */
+    transition: background-color 0.3s ease; /* Transición suave para el hover */
+}
+
+.btn-predict.btn-lg:hover, .btn-predict.btn-lg:focus {
+    background-color: #2ecc71; /* Color más claro al pasar el mouse */
+    border-color: #27ae60; /* Borde de color complementario */
+}
+
+/* Mejoras en los campos de entrada para mejor contraste y visibilidad */
+input[type="text"] {
+    background-color: #ffffff; /* Fondo blanco para mayor contraste */
+    color: #333; /* Texto oscuro para mejor legibilidad */
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1); /* Sombra interior suave */
+}
+
+/* Resultados de predicción más destacados */
+.card {
+    background-color: #ffffff; /* Fondo blanco para destacar */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra más notoria */
+    border-color: #3498db; /* Borde de color temático */
+}
+
+.card .card-body {
+    padding: 20px; /* Más espacio interior */
+}
+
+.card .card-text {
+    color: #333; /* Texto oscuro para contraste */
+    font-weight: bold; /* Texto en negrita para destacar */
+}
+
+/* Media queries para responsividad */
+@media (max-width: 768px) {
+    .form-group {
+        font-size: 1.5em; /* Tamaño de fuente reducido para dispositivos móviles */
+    }
+
+    .btn-predict.btn-lg {
+        padding: 15px 30px; /* Relleno reducido para dispositivos móviles */
+        font-size: 1em; /* Tamaño de fuente reducido para dispositivos móviles */
+    }
+    
+    /* Ajuste del contenedor para dispositivos móviles */
+    .container {
+        width: 95%;
+        padding-top: 20px;
+    }
+    
+    /* Ajustes para las columnas en dispositivos móviles */
+    .col-md-6 {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+}

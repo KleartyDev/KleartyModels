@@ -77,7 +77,12 @@ def algoritmo_principal(df,target_name,gpt=False):
 
     df = set_target(df,target_name)
 
+    variable_names = list(df.columns)
+
+
     df,dicc_eda = eda(df,False)
+
+    type_variables = {col: str(df[col].dtype) for col in df.columns}
 
     with open('informacion/dicc_eda.json', 'w') as archivo_json:
         json.dump(dicc_eda, archivo_json)
@@ -90,8 +95,7 @@ def algoritmo_principal(df,target_name,gpt=False):
     # TRANSFORMACION DE DATOS
     df,category_mappings = transform_categorical_columns(df)
 
-    with open('informacion/dicc_category_mappings.json', 'w') as archivo_json:
-        json.dump(category_mappings, archivo_json)
+
 
     #df.to_csv('tabla_procesada.csv')  
 
@@ -106,8 +110,20 @@ def algoritmo_principal(df,target_name,gpt=False):
     selected_data = select_features(df, 'y', 10)
 
     print("Variables selecccionadas: ",selected_data.columns)
-    model_name, best_accuracy = test_and_export_best_model(df, 'y', "modelos_output/modelo_1_")
+    model_name, best_accuracy = test_and_export_best_model(selected_data, 'y', "modelos_output/modelo_1_")
     print (model_name, best_accuracy)
+
+
+    real_selected_variables = generate_selected_variables(list(selected_data.columns),variable_names)
+    
+    variables_info = { "variables_names" : real_selected_variables,
+                        'type_variables': type_variables,
+                        "category_mappings": category_mappings,
+                        "model_name":model_name}
+
+    with open('informacion/variables_info.json', 'w') as archivo_json:
+        json.dump(variables_info, archivo_json)
+    
 
     return best_accuracy, selected_data.columns
 

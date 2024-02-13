@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predictor | Klearty IA</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='predict_styles.css') }}">
+    <!-- Enlace al archivo CSS de Bootstrap (requiere conexión a Internet) -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .card {
+            background-color: #eaecfa; /* Color de fondo */
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra */
+        }
+    </style>
+    </style>
+    </head>
+<body>
+    <div class="header text-center">
+        <img src="{{ url_for('static', filename='logo_klearty.png') }}" alt="Logo Klearty" class="img-fluid">
+        <!--<h1 class="mt-4">Klearty ya tiene tu modelo listo para ser usado</h1>-->
+    </div>
+
+    <div class="container mt-5">
+        <h2 class="mb-4">Ingrese los datos de las siguientes variables y obtenga su predicción :)</h2>
+        <form action="/realizar_prediccion" method="POST">
+            <input type="hidden" name="cant_variables" value="{{ cant_variables }}">
+            <div class="row">
+            {% for i in range(cant_variables) %}
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="variable{{ i }}">Variable {{ i + 1 }} ({{ variables[i] }}):</label>
+                        <input type="text" class="form-control" name="variable{{ i }}" placeholder="Ingrese valor">
+                    </div>
+                </div>
+                {% if loop.index % 2 == 0 and not loop.last %}
+                </div><div class="row">
+                {% endif %}
+            {% endfor %}
+            </div>
+            <button type="submit" class="btn btn-primary btn-predict btn-lg">Ejecutar</button>
+
+
+        </form>
+
+        <div class="mt-5">
+            <h3 class="mb-4 text-center" style="font-size: 22px;">Resultado de la Predicción</h3>
+            <div class="card border-primary mx-auto" style="max-width: 24rem; font-size: 18px;">
+                <div class="card-body">
+                    <p class="card-text h4 text-center">{{ resultado_prediccion }}</p>
+                </div>
+            </div>
+        </div>
+        <br>
+    </div>
+
+<!-- Scripts de Bootstrap (requiere conexión a Internet) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<!-- Script personalizado para la predicción (puedes definirlo según tus necesidades) -->
+<script>
+    function predecir() {
+        // Agrega aquí tu lógica de predicción con los valores de las casillas de texto
+        alert("Implementa la lógica de predicción aquí");
+    }
+</script>
+
+</body>
+</html>
+
