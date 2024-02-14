@@ -1,6 +1,9 @@
 import numpy as np 
 import pandas as pd
 import json
+from datetime import datetime
+import time
+
 from parametros import *
 
 from modelos import *
@@ -71,16 +74,22 @@ def eda(df,gpt =False):
 
 
 
-def algoritmo_principal(df,target_name,gpt=False):
+def algoritmo_principal(df,target_name,gpt, filename):
 
 
+    fecha_hoy = datetime.today().strftime('%Y-%m-%d')
+    print("La fecha de hoy es:", fecha_hoy)
+    inicio = time.time()
 
     df = set_target(df,target_name)
 
     variable_names = list(df.columns)
-
+    shape_inicial = df.shape
+    
 
     df,dicc_eda = eda(df,False)
+
+    shape_sin_nulos = df.shape
 
     type_variables = {col: str(df[col].dtype) for col in df.columns}
 
@@ -123,7 +132,28 @@ def algoritmo_principal(df,target_name,gpt=False):
 
     with open('informacion/variables_info.json', 'w') as archivo_json:
         json.dump(variables_info, archivo_json)
+
     
+
+    # Calcular el tiempo transcurrido
+    fin = time.time()
+    tiempo_transcurrido = fin - inicio    
+
+
+    nueva_fila = {
+    'fecha': fecha_hoy,
+    'tiempo': tiempo_transcurrido,
+    'nombre dataset': filename,
+    'cantidad filas': shape_inicial[0],
+    'cantidad columnas': shape_inicial[1],
+    'accuracy': best_accuracy,
+    'modelo': model_name,
+    'shape outilers': df_only_outliers.shape,
+    'shape luego de la limpieza': shape_sin_nulos
+    
+        }
+    
+    insertar_fila_y_guardar_excel("macro informacion modelos.xlsx","Hoja 1",nueva_fila)
 
     return best_accuracy, selected_data.columns
 

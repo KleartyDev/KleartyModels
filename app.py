@@ -25,7 +25,7 @@ def index():
         df.to_csv("datos_input/" + filename)
         print("archivo guardado")
 
-        metric, variables_principales = algoritmo_principal(df, target, gpt=False)
+        metric, variables_principales = algoritmo_principal(df, target, False,filename)
         cant_variables_principales = len(variables_principales)
         print(variables_principales)
         print ("  cantidad:  ") 
@@ -127,7 +127,7 @@ def realizar_predeciccion():
      
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=5000)
+    app.run(debug=True)
 
 #if __name__ == '__main__':
     ##app.run(debug=True)
